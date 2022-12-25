@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  {% block title %}<title>ANNONCES IMMOBILIAIRE</title>{% endblock %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <!-- Add additional CSS in static file -->
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1> vous cherchez un bien immobilier ? vous etets au bon endroit  </h1>
+  <h2> bienvenue dans notre site </h2>
+  <a name="" class="btn btn-primary" href="{% url 'home' %}" role="button"> commencer </a>
+</body>
+</html>
