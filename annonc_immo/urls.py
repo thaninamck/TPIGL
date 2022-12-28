@@ -16,14 +16,24 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from django.views.generic import TemplateView
+from annonces import views
+
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('annonces/', include('annonces.urls' )),
-    #pour l'authentification SSO
+    path('annoncer/', views.annonce_form_view , name='annoncer'),
    
-    
+    path('acceuil/', views.recupererAnnonces , name='recupererAnnonces'),
+    #pour l'authentification SSO
     path('' , TemplateView.as_view(template_name='index.html') , name='index')
 
 ]
+from django.conf import settings
+#if settings.DEBUG:
+urlpatterns+= static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns+= static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

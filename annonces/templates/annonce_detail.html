@@ -1,0 +1,39 @@
+{% extends "base_generic.html" %}
+
+
+{% load static %}
+
+
+
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        
+        {% if obj %}
+            {% for object in obj %}
+                <div class="col-md-3 card" style="width: 18rem; margin-top:3rem ; margin-left:3rem ; margin-buttom:1rem  ">
+                    {% if object.img %}
+                            <img src=" {{object.img.url }}"  class="card-img-top product_img" alt="...">
+                    {% else %}
+                            <img src=" {% static 'images/default.jpg' %}"  class="card-img-top product_img" alt="...">
+                    {% endif %}
+                    
+                    <div class="card-body">
+                        <h5 class="card-title">Titre : {{ object.titre }}</h5>
+                        <p class="card-text"> Categorie :{{ object.categorie }}</p>
+                        <p class="card-text"> Prix :{{ object.prix }}</p>
+                        <p class="card-text">Description : {{ object.description }}</p>
+                        <p class="card-text"> Date de depot : {{ object.date }}</p>
+                        <p class="card-text">Localisation : {{ object.localisation }}</p>
+                        <a href="#" class="btn btn-primary">Envoyer un message au proprietaire</a>
+                    </div>
+                </div>
+            {% endfor %}   
+        {% endif %}
+        
+    </div>
+
+  </div>
+
+{% endblock %}

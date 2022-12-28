@@ -107,7 +107,7 @@ WSGI_APPLICATION = 'annonc_immo.wsgi.application'
 DATABASES = {
     'default': {
          'ENGINE': 'django.db.backends.mysql',
-         'NAME':  'tp_igl',
+         'NAME':  'tp_igl1',
          'USER' : 'root',
          'HOST' :'127.0.0.1',
          'PORT': '',

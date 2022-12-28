@@ -1,0 +1,40 @@
+{% extends "base_generic.html" %}
+
+
+{% load static %}
+
+
+
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        {% if nb_resultat %}
+            <p>nombre de résultats trouvé : {{ nb_resultat }}</p>
+        {% endif %}
+        {% if annonces_list %}
+            {% for annonce in annonces_list %}
+            <div class="col-md-3 card" style="width: 18rem; margin-top:3rem ; margin-left:3rem ; margin-buttom:1rem  ">
+                {% if annonce.img %}
+                <img src=" {{annonce.img.url }}"  class="card-img-top product_img" alt="...">
+                {% else %}
+                <img src=" {% static 'images/default.jpg' %}"  class="card-img-top product_img" alt="...">
+                {% endif %}
+                
+                <div class="card-body">
+                    <h5 class="card-title">{{ annonce.titre }}</h5>
+                    <p class="card-text">{{ annonce.categorie }}</p>
+                    <p class="card-text">{{ annonce.prix }}</p>
+                    <a href="{% url 'AnnonceDetail' annonce.id %}" class="btn btn-primary">Plus de details</a>
+                </div>
+            </div>
+            {% endfor %}
+        
+        {% else %}
+            <p>Aucun résultat disponible</p>
+        {% endif %}
+    </div>
+
+  </div>
+
+{% endblock %}
