@@ -18,4 +18,12 @@ class Annonce(models.Model):
         return self.titre 
 
      
+class scrupted_annonce(models.Model):
+    categorie = models.CharField(max_length=50, null=True)
+    localisation= models.CharField(max_length=50, null=True)
+    adresse= models.CharField(max_length=50, null=True)
+    surface=models.CharField(max_length=50, null=True)
+    prix= models.CharField(max_length=50, null=True)
+    texte= models.CharField(max_length=500 , null=True)
+         
 

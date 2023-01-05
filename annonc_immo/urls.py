@@ -23,10 +23,10 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin1/', admin.site.urls),
     path('annonces/', include('annonces.urls' )),
     path('annoncer/', views.annonce_form_view , name='annoncer'),
-   
+    #path('admin/', views.scrupt_annonce ),
     path('acceuil/', views.recupererAnnonces , name='recupererAnnonces'),
     #pour l'authentification SSO
     path('' , TemplateView.as_view(template_name='index.html') , name='index')
