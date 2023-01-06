@@ -24,6 +24,7 @@ class scrupted_annonce(models.Model):
     adresse= models.CharField(max_length=50, null=True)
     surface=models.CharField(max_length=50, null=True)
     prix= models.CharField(max_length=50, null=True)
+    img = models.ImageField(upload_to='images/' ,default='images/default.png' , null=True)
     texte= models.CharField(max_length=500 , null=True)
          
 
