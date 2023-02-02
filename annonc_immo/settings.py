@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'annonces',
+     'rest_framework',
     
     
     'crispy_forms',
@@ -109,6 +110,7 @@ DATABASES = {
          'ENGINE': 'django.db.backends.mysql',
          'NAME':  'tp_igl1',
          'USER' : 'root',
+         'PASSWORD' : "ilyesilyes123@@" ,
          'HOST' :'127.0.0.1',
          'PORT': '',
 

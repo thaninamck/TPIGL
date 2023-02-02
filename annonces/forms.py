@@ -21,6 +21,15 @@ class AnnonceForm(forms.ModelForm):
             "categorie": forms.Select(choices=categorie_select),
             
         }
+        
+class UtilisateurForm(forms.ModelForm):
+    
+    # google_id = models.IntegerField( primary_key=True)
+    nom = models.CharField(max_length=50)
+    # prenom = models.CharField(max_length=50)
+    sim1 = models.CharField(max_length=10  , default=None)
+    # sim2 = models.CharField(max_length=10 , default=None)
+    localisation=models.CharField(max_length=60)
     
     
     

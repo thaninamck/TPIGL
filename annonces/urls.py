@@ -21,7 +21,10 @@ urlpatterns = [
     path('home/', index, name='index'),
     path('accounts/', include('allauth.urls')),
     path('annoncer/', annonce_form_view , name='annoncer'),
+    path("check_user/<id>" , verifier_utilisateur) ,
+    path("add_user/" , verifier_et_ajouter_utilisateur )  ,
     #path('details-annonce/', detailsAnnonce, name='details-annonce'),
     path('annonce/<int:pk>',AnnonceDetail, name="AnnonceDetail"),
-    path('' , TemplateView.as_view(template_name='dashboard/home.html') , name='home')
+    path('' , TemplateView.as_view(template_name='dashboard/home.html') , name='home') , 
+    path('test' , test)
     ]
