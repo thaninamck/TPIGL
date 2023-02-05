@@ -1,17 +1,18 @@
 import React from 'react';
 import "./Annonce.css";
 import { IoIosHeartEmpty } from "react-icons/io";
+import { Link } from 'react-router-dom';
 import { GoLocation } from "react-icons/go";
-import {AiOutlineHome} from "react-icons/ai"
+import {AiOutlineHome} from "react-icons/ai";
 import {RxDimensions} from "react-icons/rx"
 import {BsCalendarDate} from "react-icons/bs"
 import {MdAttachMoney} from "react-icons/md"
-const Annonce = ({ picture, title, location, category, type, surface, date, price }) => {
-  const handleSubmit = (event) =>{
+const Annonce = ({ id, picture, title, location, category, type, surface, date, price }) => {
+  /*const handleSubmit = (event) =>{
       
-      window.location.pathname = "/Annonces/:"  }
+      window.location.pathname = "/Annonces/:"  }*/
   return(
-  <div className='Annonce' onClick={handleSubmit}>
+  <div className='Annonce'>
     <img src={picture} alt="Not found"/>
     <div className="container-info">
         <div className="container-title">
@@ -26,6 +27,7 @@ const Annonce = ({ picture, title, location, category, type, surface, date, pric
             <button>{category}</button>
         </div>
     </div>
+
   </div>
   )
 };

@@ -23,7 +23,7 @@ const App = () => {
       <div className="App">
         <Routes>
           <Route path="/" element={<Home />}/>
-          <Route index element={<HomeConnected />}/>
+          <Route path="/HomeConnected" element={<HomeConnected />}/>
           <Route path="/MonCompte/" element={<MonCompteLayout />}> {/*Here the big / we put here the main and then inside of it we have all the routes inside example /monprofil /mesannonces /ajouterannonces */}
             <Route index element={<MonProfil />} />
             <Route path="MesAnnonces" element={<MesAnnonces />} />

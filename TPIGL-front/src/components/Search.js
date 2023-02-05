@@ -60,7 +60,7 @@ const Home = () => {
                  <button className="filtrer" onClick={handleSubmitFilter}>filtrer</button>
               </div>
               <div className="filter">
-              <form onSubmit={handleSubmit} className="form">
+              <form onSubmit={handleSubmit} className="for">
       <select value={category} className="category" onChange={(e) => setCategory(e.target.value)}>
         <option value="">Catégorie</option>
         <option value="Vente">Vente</option>

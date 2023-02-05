@@ -1,5 +1,8 @@
+
 import React, { useState, useEffect,useCallback ,useRef} from "react";
 import { useParams } from "react-router-dom";
+import { useJsApiLoader, GoogleMap, MarkerF} from "@react-google-maps/api";
+import { Link } from "react-router-dom";
 
 import "../App.css";
 import descriptionIcon from "../images/Description-Icon.svg";
@@ -12,21 +15,65 @@ import leftarrow from "../images/leftarrow.svg";
 import rightarrow from "../images/rightarrow.svg";
 
 const DetailsAnnonce = () => {
+
+    const center ={ lat: 48.8584, lng: 2.2945}
+    const [annonceInfo, setAnnonceInfo] = useState({
+        titre:"APPARTEMENT A VENDRE",
+        date:"01/02/2020",
+        typeDeTransaction : "VENTE",
+        typeDuBien :"appartement",
+        surface : 0,
+        prix :0,
+        location:{
+            address: "",
+            area : "",
+            city : "",
+            state :"",
+            zoom: 5,
+            mapPosition:{
+              lat:30,
+              lng:4,
+            },
+            markerPosition:{
+              lat:30,
+              lng:4,
+            },
+        },
+        description :"",
+        photos:[],
+        proprietaire: {
+            nom:"Kedadsa",
+            prenom:"Islam",
+            address:"smfj",
+            email: "fsdjmq",
+            numero1:"sfdl",
+        }
+    })
+    const [connectedUser,setConnectedUser]= useState({
+        photo:"",
+        nom:"Benabbes",
+        prenom:"Ilyes",
+    })
     const [message, setMessage] = useState("");
     const {id} = useParams()
-
+  const {isLoaded} = useJsApiLoader({
+        googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+        libraries: ["places"],
+    })
     const handleSubmit = (event) => {
         event.preventDefault();
         alert(`The name you entered was: ${message}`)
       }
-
+      if (!isLoaded) {
+        return <div style={{textAlign:"center",margin:"100px",fontSize:"40px",fontWeight:"200"}}>Waiting...</div>
+      }
     return(
         <>
         {/** Nav bar place*/}
         <div className="details-annonce">
             <div className="details-annonce-titre-prix">
-                <div className="details-annonce-titre">APPARTEMENT A VENDRE</div>
-                <div className="details-annonce-prix">1000000 da</div>
+                <div className="details-annonce-titre">{annonceInfo.titre}-{id[1]}</div>
+                <div className="details-annonce-prix">{annonceInfo.prix}</div>
             </div>
             <div className="details-annonce-photos-map">
                 <div className="details-annonce-photos">
@@ -39,7 +86,11 @@ const DetailsAnnonce = () => {
                         </div>
                     </div>
                 </div>
-                <div className="details-annonce-map"></div>
+                <div className="details-annonce-map" >
+                    <GoogleMap center = {annonceInfo.location.mapPosition} zoom = {15} mapContainerStyle={{width: '100%', height: '100%'}} options ={{zoomcontrol: false,streetViewControl: false,mapTypeControl:false,fullscreenControl:false}}>
+                        <MarkerF position = {annonceInfo.location.markerPosition} />
+                    </GoogleMap>
+                </div>
             </div>
             <div className="details-annonce-description-titre-tableau-textarea">
                 <div className="details-annonce-description-titre">
@@ -50,42 +101,42 @@ const DetailsAnnonce = () => {
                     <table>
                         <tr>
                             <td>Date</td>
-                            <td>12/12/2022  14:30:07</td>
+                            <td>{annonceInfo.date}</td>
                         </tr>
                         <tr>
                             <td>Categorie</td>
-                            <td>Echange</td>
+                            <td>{annonceInfo.typeDeTransaction}</td>
                         </tr>
                         <tr>
                             <td>Type</td>
-                            <td>Terrain</td>
+                            <td>{annonceInfo.typeDuBien}</td>
                         </tr>
                         <tr>
                             <td>Surface</td>
-                            <td>100m2</td>
+                            <td>{annonceInfo.surface}m2</td>
                         </tr>
                         <tr>
                             <td>Wilaya</td>
-                            <td>Alger</td>
+                            <td>{annonceInfo.location.area}</td>
                         </tr>
                         <tr>
                             <td>Commune</td>
-                            <td>Saoula</td>
+                            <td>{annonceInfo.location.city}</td>
                         </tr>
                         <tr>
                             <td>Adresse</td>
-                            <td>Houch baraka</td>
+                            <td>{annonceInfo.location.address}</td>
                         </tr>
                     </table>
                 </div>
                 <div className="details-annonce-description-textarea">
                     <div className="details-annonce-description-textarea-titre">Description</div>
-                    <div className="details-annonce-description-textarea-text">Un appartement F5 avec cuisine equipée</div>
+                    <div className="details-annonce-description-textarea-text">{annonceInfo.description}</div>
                 </div>
             </div>
             <div className="details-annonce-contact">
                 <div className="details-annonce-contact-titre">
-                    <img src={contactIcon} alt=""contact />
+                    <img src={contactIcon} alt="contact" />
                     <div>
                     Contact et coordonées
                     </div>
@@ -93,19 +144,19 @@ const DetailsAnnonce = () => {
                 <div className="details-annonce-contact-container">
                     <div className="details-annonce-contact-container-ligne">
                         <img src={contactIcon} alt="contact" />
-                        <div>Kedadsa Islam Chakib</div>
+                        <div>{annonceInfo.proprietaire.nom +" " +annonceInfo.proprietaire.prenom}</div>
                     </div>
                     <div className="details-annonce-contact-container-ligne">
                         <img src={locationIcon} alt="location" />
-                        <div>Saoula, Alger</div>
+                        <div>{annonceInfo.proprietaire.address}</div>
                     </div>
                     <div className="details-annonce-contact-container-ligne">
                         <img src={emailIcon} alt="email" />
-                        <div>Email@email.com</div>
+                        <div>{annonceInfo.proprietaire.email}</div>
                     </div>
                     <div className="details-annonce-contact-container-ligne">
                         <img src ={phoneIcon} alt="phone"/>
-                        <div>056113411461564</div>
+                        <div>{annonceInfo.proprietaire.numero1}</div>
                     </div>
                 </div>
             </div>
@@ -118,7 +169,7 @@ const DetailsAnnonce = () => {
                     <div className="details-annonce-envoyer-message-container-name-message">
                         <img src="" alt=""/>
                         <div>
-                            <div className="details-annonce-envoyer-message-container-message-sender">Ilyes Benabbes</div>
+                            <div className="details-annonce-envoyer-message-container-message-sender">{connectedUser.nom + " " +connectedUser.prenom}</div>
                             <form onSubmit={handleSubmit}>
                                     <textarea
                                     className="message-area"
