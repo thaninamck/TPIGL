@@ -1,3 +1,7 @@
+.form{
+  display:flex;
+
+}
 .search{
     /* Rectangle 23 */
   
@@ -52,6 +56,22 @@
   display: flex;
   align-items: center;
   color: #575050;
+  }
+  .periode{
+    display:flex;
+    flex-direction: column;
+
+  }
+  .à,.de{
+    height:37px;
+    border-radius: 0;
+    border: 1px solid #000;
+  }
+  .à{
+    border-radius: 0 0 10px 0;
+  }
+  .de{
+    border-radius: 0 10px 0 0;
   }
   .filter{
     /* Filters */

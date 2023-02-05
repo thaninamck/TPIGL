@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "./Filter.css"
+import data  from "../../../algeria_cities.json"
 const Filter = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [category, setCategory] = useState("");
@@ -7,7 +8,6 @@ const Filter = () => {
   const [region, setRegion] = useState("");
   const [type, setType] = useState("");
   const [period, setPeriod] = useState("");
-
   const handleSubmit = (e) => {
     e.preventDefault();
     // Perform search based on the selected filters
@@ -15,6 +15,7 @@ const Filter = () => {
       `Searching for "${searchTerm}" in "${category}" "${city}" "${region}" "${type}" "${period}"`
     );
   };
+
 
   return (
     <form onSubmit={handleSubmit} className="form">
@@ -26,15 +27,19 @@ const Filter = () => {
       </select>
       <select value={city} className="city" onChange={(e) => setCity(e.target.value)}>
         <option value=""> Wilaya</option>
-        <option value="city1">City 1</option>
-        <option value="city2">City 2</option>
-        <option value="city3">City 3</option>
+        {data.map(item => (
+                 <option key={item.id} value="region1">{item.wilaya_name}</option>
+        ))}
       </select>
       <select value={region} className="region" onChange={(e) => setRegion(e.target.value)}>
-        <option value="">Commune</option>
-        <option value="region1">Region 1</option>
+        <option value="">Commne</option>
+        {data.map(item => (
+                 <option key={item.id} value="region1">{item.commune_name}</option>
+        ))}
+
+        {/*<option value="region1">Region 1</option>
         <option value="region2">Region 2</option>
-        <option value="region3">Region 3</option>
+        <option value="region3">Region 3</option>*/}
       </select>
       <select value={type} className="type" onChange={(e) => setType(e.target.value)}>
         <option value="">Type</option>

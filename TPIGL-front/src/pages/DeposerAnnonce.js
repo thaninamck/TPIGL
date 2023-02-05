@@ -2,15 +2,10 @@ import React, { useState, useEffect,useCallback ,useRef} from "react";
 import { useJsApiLoader, GoogleMap, MarkerF} from "@react-google-maps/api";
 import Geocode from "react-geocode";
 import Autocomplete  from "react-google-autocomplete";
-// import { type } from "@testing-library/user-event/dist/type";
-
 import DeposerPhotos from "./DeposerPhotos";
-
+//import "./DeposerAnnonce.css"
 Geocode.setApiKey(process.env.REACT_APP_GOOGLE_MAPS_API_KEY)
-
 const FormPage1 = ({data , setData}) => {
-  // const [description, setDescription] = useState("");
-  // const [selected, setSelected] = React.useState("");
   const [mapLocation,setMapLocation] =useState({
     address: "",
     area : "",
@@ -119,8 +114,6 @@ const FormPage1 = ({data , setData}) => {
                 lng:newLng,
               }
             },}))
-            // console.log(addressArray)
-            //  console.log(mapLocation)
     })    
   }
   
@@ -138,13 +131,6 @@ const FormPage1 = ({data , setData}) => {
       console.log(addressArray)
       console.log('latvalue', latValue)
       console.log('lngValue', lngValue)
-      // console.log("city"+city)
-      // console.log("area"+area)
-      // console.log("state"+state) 
-      // console.log("latValue"+latValue)
-      // console.log("lngValue"+lngValue)
-  
-      // Set these values in the state.
       setMapLocation({
           address: (address) ? address : '',
           area: (area) ? area : '',
@@ -177,33 +163,6 @@ const FormPage1 = ({data , setData}) => {
       },}))
     }
   }
-  // const changeSelectOptionHandler = (event) => {
-  //   setSelected(event.target.value);
-  // };
-  
-  // const algorithm = [
-  //   "Searching Algorithm",
-  //   "Sorting Algorithm",
-  //   "Graph Algorithm",
-  // ];
-  // const language = ["C++", "Java", "Python", "C#"];
-  // const dataStructure = ["Arrays", "LinkedList", "Stack", "Queue"];
-  
-  // let type = null;
-  
-  // let options = null;
-  
-  // if (selected === "Algorithm") {
-  //   type = algorithm;
-  // } else if (selected === "Language") {
-  //   type = language;
-  // } else if (selected === "Data Structure") {
-  //   type = dataStructure;
-  // }
-  
-  // if (type) {
-  //   options = type.map((el) => <option key={el}>{el}</option>);
-  // }
 
 const handleChange = (event) => {
   const name = event.target.name;
@@ -256,7 +215,7 @@ const handleChange = (event) => {
     }
   }
   return(
-    <>
+    <div className="Transaction">
     <div className="loading">
         <div className="rectangle"></div>
         <div className="circle1">
@@ -300,29 +259,8 @@ const handleChange = (event) => {
             <div className="sub-container" >
                 <div className="sub-container-entete"><label className="sub-container-entete-label">LOCALISATION* : </label></div>
                 <div className="location-section">
-                  {/* <div className="location-form-1-champ-section">
-                      <label>Wilaya</label>
-                      <select onChange={changeSelectOptionHandler}>
-                      <option>Choose...</option>
-                      <option>Algorithm</option>
-                      <option>Language</option>
-                      <option>Data Structure</option>
-                      </select>
-                  </div>
-                  <div className="location-form-1-champ-section">
-                  <label>Commune</label>
-                      <select>
-                      {
-                        /** This is where we have used our options variable 
-                          options
-                      }
-                      </select>
-                  </div> */}
                   <div className="location-form-1-champ-section" >
                   <label style={{width :"100%",}}>Adresse du bien (Vous pouvez l'indiquer avec le marqueur rouge sur la map)</label>
-
-                  {/* <input style={{width:"97%",height:"30px",paddingLeft:16,}} type='text' placeholder="Quartier,Ville,Wilaya" ref={originRef} onChange={handleMapChange} name="Address"/> */}
-                    {/* </Autocomplete> */}
                     <Autocomplete 
                     apiKey= {process.env.REACT_APP_GOOGLE_MAPS_API_KEY}
                     style={{width:"95%",height:"30px",paddingLeft:16,}}
@@ -333,7 +271,6 @@ const handleChange = (event) => {
                   <div className="location-form-1-champ-map">
                     <div style={{width:"100%",height:"250px"}}>
                     <GoogleMap center = {{lat : mapLocation.mapPosition.lat ,lng : mapLocation.mapPosition.lng }} zoom = {mapLocation.zoom} mapContainerStyle={{width: '100%', height: '100%'}} options ={{zoomcontrol: false,streetViewControl: false,mapTypeControl:false,fullscreenControl:false}}>
-                    {/* <Marker position ={{lat : mapLocation.markerPosition.lat ,lng : mapLocation.markerPosition.lng }} draggable ={true} onDragEnd={onMarkerDragEnd}/>  */}
                     <MarkerF position ={{lat : mapLocation.markerPosition.lat ,lng : mapLocation.markerPosition.lng }} draggable ={true} onDragEnd={onMarkerDragEnd} /> 
                     </GoogleMap>
                     </div>
@@ -347,7 +284,7 @@ const handleChange = (event) => {
             </div>
             </div>
     </div>
-            </>
+    </div>
   )
 }
 const DeposerAnnonce = () => {
@@ -369,13 +306,8 @@ const PageDisplay = ()=> {
     return <DeposerPhotos data={data} setData={setData} passPhotosToParent = {setPhotos}/>
   }
 }
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   console.log(inputs);
-  // }
-
   return (
-    <>
+    <div className="DeposerAnnonce">
         {PageDisplay()}
         <button className="continuer"
           disabled = {page === 0}
@@ -383,14 +315,13 @@ const PageDisplay = ()=> {
           Retour
         </button>
         <button className="continuer" 
-          // disabled = {page === 1}
           onClick={()=>{
             setPage((currPage)=>currPage+1)
             console.log(photos)
             }}>
             { (page) ? "Terminer" : "Continuer"}
         </button>
-    </>
+    </div>
   )
 }
 

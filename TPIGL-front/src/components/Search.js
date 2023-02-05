@@ -2,6 +2,7 @@ import React from "react";
 import "./Search.css"
 import {useState } from "react"
 import axios from "axios";
+import data from "../algeria_cities.json"
 const Home = () => {
     const [search, setSearch] = useState('');
     const [category, setCategory] = useState('');
@@ -9,6 +10,14 @@ const Home = () => {
     const [region, setRegion] = useState('');
     const [period, setPeriod] = useState('');
     const [type, setType] = useState('');
+    const [dateFrom,setDateFrom] = useState('');
+    const [dateTo,setDateTo] = useState('');
+    const wilayas = [...new Set(data.map(item => item.wilaya_name))];
+    //const wilayas = new Set(data.map(item => (item.wilaya_name)));
+    const filteredData = data.filter(item => item.wilaya_name === city);
+    console.log(city)
+    console.log(region)
+    console.log(filteredData);
     const handleSubmitFilter = (e) => {
         e.preventDefault();
         const formFilter = {category,city,region,period}
@@ -20,7 +29,8 @@ const Home = () => {
             setCity('');
             setRegion('');
             setType('');
-            setPeriod('')
+            setDateFrom('');
+            setDateTo('');
           }
           )
           .catch(error => {
@@ -30,6 +40,7 @@ const Home = () => {
       const handleSubmit = (e) => {
         console.log(search)
         e.preventDefault();
+
         axios.post('http://your-api-endpoint.com/submit-form', search)
         .then(response => {
             console.log(response);
@@ -38,6 +49,8 @@ const Home = () => {
         .catch(error => {
             console.error(error);
         })
+        console.log(window.location.pathname)
+        window.location.pathname==="/" ?  window.location.href = "SearchResults" : window.location.href = "./HomeConnected/SearchResults"
       } 
     return(
         <>
@@ -50,34 +63,38 @@ const Home = () => {
               <form onSubmit={handleSubmit} className="form">
       <select value={category} className="category" onChange={(e) => setCategory(e.target.value)}>
         <option value="">Catégorie</option>
-        <option value="category1">Vente</option>
-        <option value="category2">Location</option>
-        <option value="category3">Vacance</option>
+        <option value="Vente">Vente</option>
+        <option value="Echange">Echange</option>
+        <option value="Location">Location</option>
+        <option value="Vacance">Vacance</option>
       </select>
       <select value={city} className="city" onChange={(e) => setCity(e.target.value)}>
-        <option value=""> Wilaya</option>
-        <option value="city1">City 1</option>
-        <option value="city2">City 2</option>
-        <option value="city3">City 3</option>
+        <option value="">Wilaya</option>
+        {wilayas.map(item => (
+                 <option key={item.id} value={item}>{item}</option>
+        ))}
       </select>
+      
       <select value={region} className="region" onChange={(e) => setRegion(e.target.value)}>
         <option value="">Commune</option>
-        <option value="region1">Region 1</option>
-        <option value="region2">Region 2</option>
-        <option value="region3">Region 3</option>
+        {
+        filteredData.map(item => (
+                 <option key={item.id} value={item.commune_name}>{item.commune_name}</option>
+        ))}
       </select>
       <select value={type} className="type" onChange={(e) => setType(e.target.value)}>
         <option value="">Type</option>
-        <option value="type1">Type 1</option>
-        <option value="type2">Type 2</option>
-        <option value="type3">Type 3</option>
+        <option value="Terrain">Terrain</option>
+        <option value="Terrain Agricole">Terrain Agricole</option>
+        <option value="Appartement">Appartement</option>
+        <option value="Maison">Maison</option>
+        <option value="Bungalow">Bungalow</option>
       </select>
-      <select value={period} className="period" onChange={(e) => setPeriod(e.target.value)}>
-        <option value="">périodes</option>
-        <option value="period1">Period 1</option>
-        <option value="period2">Period 2</option>
-        <option value="period3">Period 3</option>
-      </select>
+      {/*<select value={period} className="period" onChange={(e) => setPeriod(e.target.value)}>*/}
+      <div className="periode">
+      <input type="date"  className="de" value={dateFrom} onChange={(e) => setDateFrom(e.target.value)}/>
+      <input type="date"  className="à" value={dateTo} onChange={(e) => setDateTo(e.target.value)}/>
+      </div>
     </form>
               </div>
         </>

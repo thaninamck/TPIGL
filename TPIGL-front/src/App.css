@@ -234,7 +234,8 @@ footer > p {
     margin-right: 20px;
     margin-left: auto;
 }
-.edit > div {
+.edit > button {
+    border: 0px;
     color: #003251;
     font-size: 14px;
     font-weight: 300;

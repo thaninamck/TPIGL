@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useRef } from "react";
 import "./PopUp.css";
 import { FaGoogle } from "react-icons/fa";
 import { BiMessage} from "react-icons/bi";
@@ -30,21 +30,23 @@ export default function Modal() {
       
 
   }
-
+  const divRef = useRef(null) 
   useEffect(() =>{
+  if(divRef.current){  
   /* global google */
-  google.accounts.id.initialize({
+  window.google.accounts.id.initialize({
   client_id : "386512640934-dsrl533naj8mm0ipcofuggc240vc8set.apps.googleusercontent.com" , 
   callback : handeCallbackResponse
   
   }) ; 
   //window.location.href = './InscriptionForm';
-  google.accounts.id.renderButton(
-    document.getElementById("test"), {
+  window.google.accounts.id.renderButton(
+    divRef.current, {
       theme : "outline" , size:"large"
     } 
   ) ;
-  },[]);
+  }
+  },[divRef.current]);
   const toggleModal = () => {
     setModal(!modal);
   };
@@ -71,7 +73,7 @@ export default function Modal() {
             <p>
             En nous rejoingnant vous pourrrez acceder à l’action precedente
             </p>
-            <button id="test"     ></button>
+            <button ref={divRef} ></button>
             <button className="close-modal" onClick={toggleModal}>
               <GrClose className="GrClose"/>
             </button>
