@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar';
 import PopUp from '../components/PopUp';
 import './InscriptionForm.css';
 import '../App.css'
+import axios from 'axios';
 const InscriptionForm = () => {
   const [familyName, setFamilyName] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -10,10 +11,30 @@ const InscriptionForm = () => {
   const [emailAddress, setEmailAddress] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [image, setImage] = useState(null);
-
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(familyName);
+    const formData = new FormData();
+    const jsonFile = JSON.stringify({nom :familyName,prenom:firstName,sim1:phoneNumber});
+    formData.append('userdata', jsonFile);
+    console.log(jsonFile)
+    formData.append('image', image)
+    console.log(image)
+    
+    axios.post('http://benabbes05ilyes.pythonanywhere.com/annonces/add_user/', formData)
+      .then(response => {
+        console.log(response);
+        /*setFamilyName({familyName: ''});
+        setFirstName({firstName: ''});
+        setDateOfBirth({dateOfBirth: ''});
+        setEmailAddress({emailAddress: ''});
+        setPhoneNumber({phoneNumber: ''});
+        setImage({image: null});  */
+        
+      })
+      .catch(error => {
+        console.error(error);
+      });
+      
   };
 
   return (
@@ -71,7 +92,7 @@ const InscriptionForm = () => {
                 <label>Image de profile:</label>
               </td>
               <td>
-              <label htmlFor="image" className='labelImage'>Upload Image</label>
+              <label htmlFor="image" className='labelImage'>{!image ? 'Upload Image' : 'Image Uploaded'} </label>
                 <input type="file" id="image" onChange={(e) => setImage(e.target.files[0])}/>
               </td>
             </tr>

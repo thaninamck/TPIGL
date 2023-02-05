@@ -3,15 +3,43 @@ import Navbar from '../components/Navbar';
 import PopUp from '../components/PopUp';
 import "./Home.css"
 import  Annonce from '../components/Annonce'
-import Filter from '../components/Filter';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from "axios"
+import Search from '../components/Search';
 import MyFooter from '../components/MyFooter';
 const Home = () => {
     const [Annonces,setAnnonces] = useState([
-        {id: 1,picture: null,title: "Vente appartement Saoula",Location: "Saoula, Alger",Type:"Appartement", Surface: 100,Date: "10/12/2022", price: 2000000},
-        {id: 2, picture: null, title: "Vente appartement Setif",Location: "Setif, Setif",Type: "Appartement",Surface: 200,Date: "2/2/2023", price: 1500000},
-        {id: 3, picture: null, title: "Location appartement jijel",Location: "Aouana, Jijel", Type: "Appartement", Surface: 75, Date: "3/1/2023",price: 1000000}
+        { picture:"", title:"Vente Appartement F5 Saoula", location: "Saoula, Alger", category: "Appartement", surface: "100", date: "12/02/2022", price: "1000000"},
+        { picture:"", title:"Echange Appartement F5 Setif", location: "AinArnat, Setif", category: "Appartement", surface: "80", date: "12/02/2023", price: "2000000"},
+        { picture:"", title:"Vente Appartement F5 Saoula", location: "Saoula, Alger", category: "Appartement", surface: "100", date: "21/03/2021", price: "800000"},
+        { picture:"", title:"Vente Appartement F5 Saoula", location: "Saoula, Alger", category: "Appartement", surface: "100", date: "7/02/2022", price: "3000000"},
+        { picture:"", title:"Vente Appartement F5 Saoula", location: "Saoula, Alger", category: "Appartement", surface: "100", date: "2/02/2022", price: "1300000"},
+        { picture:"", title:"Vente Appartement F5 Saoula", location: "Saoula, Alger", category: "Appartement", surface: "100", date: "05/02/2022", price: "1000000"},
     ]);
+    function DataList() {
+        const [isLoading, setIsLoading] = useState(false);
+        const [error, setError] = useState(null);
+      
+        useEffect(() => {
+          setIsLoading(true);
+          axios.get('https://your-api-endpoint.com/data')
+            .then(response => {
+              setAnnonces(response.data);
+              setIsLoading(false);
+            })
+            .catch(error => {
+              setError(error);
+              setIsLoading(false);
+            });
+        }, []);
+      
+        if (isLoading) {
+          return <p>Loading...</p>;
+        }
+        if (error) {
+          return <p>An error occurred: {error.message}</p>;
+        }
+    }
     return ( 
         <div className="home">
             <Navbar></Navbar>
@@ -24,14 +52,7 @@ const Home = () => {
            </div>
            <div className="image2"></div>
            <div className="search_container">
-              <div className="search">
-                 <input type="text" className="recherche" placeholder="Vente terrain Saoula"/>
-                 <button className="rechercher">Rechercher</button>
-                 <button className="filtrer">filtrer</button>
-              </div>
-              <div className="filter">
-              <Filter/>
-              </div>
+              <Search />
            </div>
             <PopUp/>
             <h3 className='H3'>
@@ -41,12 +62,15 @@ const Home = () => {
                 Nos Recommendations
             </h1>
             <div className="grid-container">
+            {Annonces.map(item => (
+                 <div className="grid-item" key={item.id}><Annonce picture="" title={item.title}location={item.location} category={item.category} surface={item.surface} date={item.date} price={item.price} /></div>
+             ))}
+            {/*<div className="grid-item"><Annonce /></div>
             <div className="grid-item"><Annonce /></div>
             <div className="grid-item"><Annonce /></div>
             <div className="grid-item"><Annonce /></div>
             <div className="grid-item"><Annonce /></div>
-            <div className="grid-item"><Annonce /></div>
-            <div className="grid-item"><Annonce /></div>
+            <div className="grid-item"><Annonce /></div>*/}
             </div>
             <div className="container-pourquoi">
                 <div className="img"></div>

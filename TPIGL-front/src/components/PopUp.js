@@ -1,11 +1,50 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./PopUp.css";
 import { FaGoogle } from "react-icons/fa";
 import { BiMessage} from "react-icons/bi";
 import { GrClose } from "react-icons/gr";
+import jwt_decode from "jwt-decode"
+import axios from "axios" 
 export default function Modal() {
   const [modal, setModal] = useState(false);
+  function handeCallbackResponse(response){
+    // console.log("encoded jwt Id Token: " + response.credential)
+    var my_user = jwt_decode(response.credential) ; 
+    console.log("now the real use under the mask is : " );
+    console.log(my_user);
+    axios.get('http://benabbes05ilyes.pythonanywhere.com/annonces/check/' + my_user.email)
+          .then(response => { 
+            console.log(response) 
+            if(response.data.exist === "True"){
+              window.location.href = "/HomeConnected";
+            }
+            else{
+              window.location.href = "/InscriptionForm";
+            }
+            console.log(response);
+          }
+          )
+          .catch(error => {
+            console.error(error);
+          });
+      
 
+  }
+
+  useEffect(() =>{
+  /* global google */
+  google.accounts.id.initialize({
+  client_id : "386512640934-dsrl533naj8mm0ipcofuggc240vc8set.apps.googleusercontent.com" , 
+  callback : handeCallbackResponse
+  
+  }) ; 
+  //window.location.href = './InscriptionForm';
+  google.accounts.id.renderButton(
+    document.getElementById("test"), {
+      theme : "outline" , size:"large"
+    } 
+  ) ;
+  },[]);
   const toggleModal = () => {
     setModal(!modal);
   };
@@ -16,7 +55,7 @@ export default function Modal() {
     document.body.classList.remove('active-modal')
   }
   const handleClick = () => {
-    window.location.href = './InscriptionForm';
+    
    };
   return (
     <>
@@ -32,9 +71,7 @@ export default function Modal() {
             <p>
             En nous rejoingnant vous pourrrez acceder à l’action precedente
             </p>
-            <button className="login-btn" onClick={handleClick}>
-               Se Connecter<FaGoogle className="FaGoogle"/>
-            </button>
+            <button id="test"     ></button>
             <button className="close-modal" onClick={toggleModal}>
               <GrClose className="GrClose"/>
             </button>

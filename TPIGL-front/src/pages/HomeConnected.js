@@ -3,7 +3,7 @@ import LogedNavBar from '../components/LogedNavBar';
 import PopUp from '../components/PopUp';
 import "./Home.css"
 import  Annonce from '../components/Annonce'
-import Filter from '../components/Filter';
+import Search from '../components/Search';
 import { useState } from 'react';
 import MyFooter from '../components/MyFooter';
 const Home = () => {
@@ -24,14 +24,7 @@ const Home = () => {
            </div>
            <div className="image2"></div>
            <div className="search_container">
-              <div className="search">
-                 <input type="text" className="recherche" placeholder="Vente terrain Saoula"/>
-                 <button className="rechercher">Rechercher</button>
-                 <button className="filtrer">filtrer</button>
-              </div>
-              <div className="filter">
-              <Filter/>
-              </div>
+              <Search />
            </div>
             <h3 className='H3'>
                 Annonces

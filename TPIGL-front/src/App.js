@@ -13,6 +13,7 @@ import MyFooter from "./components/MyFooter";
 import HomeConnected from "./pages/HomeConnected"
 import "./App.css";
 import "./Form.css";
+//import Admin from "./pages/admin";
 
 
 const App = () => {
@@ -26,34 +27,10 @@ const App = () => {
           <Route path="MesAnnonces" element={<MesAnnonces />} />
           <Route path="/DeposerAnnonce" element={<DeposerAnnonce />} />
           <Route path="/Annonces/:id" element={<DetailsAnnonce />} />
+          {/*<Route path="/admin" element={<Admin />} />*/}
           <Route path="*" element= {<h1>NotFound</h1>} />
         </Routes>
       </div>
   );
 };
 export default App;
-
-// {   firstElement
-//     ?(
-//         <div className="app">
-//         {
-//             <MaPremiereAnnonce Ai = {firstElement}/>
-//             // setAnnonces(annonces.slice(1))
-//             annonces?.length > 0
-//             ? (
-//                 annonces.map((Ai)=>(
-//                     <MonAnnonce Ai = {Ai}/>
-//                     )
-//                 )
-//             ):(
-//             <> 
-//             </>
-//             )
-//         }
-//         </div>
-//     ):(
-//         <div>
-//         <h2>Vous n'avez creer aucune annonce</h2>
-//         </div>
-//     )
-//     }

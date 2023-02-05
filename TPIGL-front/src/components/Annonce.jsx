@@ -6,25 +6,28 @@ import {AiOutlineHome} from "react-icons/ai"
 import {RxDimensions} from "react-icons/rx"
 import {BsCalendarDate} from "react-icons/bs"
 import {MdAttachMoney} from "react-icons/md"
-const InformationCard = ({ picture, title, location, type, surface, date, price }) => (
-  
-  <div className='Annonce'>
-    <img src="E:\React_tutorials\TPIGL-front\src\images\beautiful-red-brick-house-with-decorative-lights.png" alt="Not found"/>
+const Annonce = ({ picture, title, location, category, surface, date, price }) => {
+  const handleSubmit = (event) =>{
+      
+      window.location.pathname = "/Annonces/:"  }
+  return(
+  <div className='Annonce' onClick={handleSubmit}>
+    <img src={picture} alt="Not found"/>
     <div className="container-info">
         <div className="container-title">
-            <h2>Vente appartement F5 Saoula</h2>
-            <button><IoIosHeartEmpty/></button>
+            <h2>{title}</h2>
         </div>
-        <div className="localisation"><GoLocation/>Saoula, Alger</div>
-        <div className="surface"><RxDimensions/>100 m2</div>
-        <div className="typ"><AiOutlineHome/>Appartement</div>
-        <div className="date"><BsCalendarDate/>12/02/2023</div>
+        <div className="localisation"><GoLocation/>{location}</div>
+        <div className="surface"><RxDimensions/>{surface} m2</div>
+        <div className="typ"><AiOutlineHome/>{category}</div>
+        <div className="date"><BsCalendarDate/>{date}</div>
         <div className="container-prix">
-            <div className="prix"><MdAttachMoney/>1000000 DA</div>
+            <div className="prix"><MdAttachMoney/>{price}DA</div>
             <button>A vendre</button>
         </div>
     </div>
   </div>
-);
+  )
+};
 
-export default InformationCard;
+export default Annonce;
